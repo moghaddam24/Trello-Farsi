@@ -7,7 +7,7 @@
 // @match        https://trello.com/*
 // @grant        none
 // @require      https://raw.githubusercontent.com/moghaddam24/jdate/master/jdate.min.js
-// @updateURL    https://raw.githubusercontent.com/moghaddam24/Trello-Farsi/master/main.js
+// @updateURL    https://raw.githubusercontent.com/moghaddam24/Trello-Farsi/master/trello.user.js
 // ==/UserScript==
 
 function updateIt(){
