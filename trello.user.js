@@ -23,6 +23,7 @@ function updateIt(){
                 ts_text = ts_text.replace('just now', "همین الان");
                 ts_text = ts_text.replace('a minute ago', "یک دقیقه پیش");
                 ts_text = ts_text.replace('minutes ago', "دقیقه پیش");
+                ts_text = ts_text.replace('a few seconds ago', "چند ثانیه پیش");
                 $(this).html(ts_text + "  ");
             }
         }
