@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trello jdate
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  try to take over the world!
 // @author       You
 // @match        https://trello.com/*
@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 function updateIt(){
-    $("#classic").find("a[dt]").each(function(){
+    $("#trello-root").find("a[dt]").each(function(){
         var ts_text = $(this).html();
         if( ts_text.indexOf('  ') === -1 ){
             if( ts_text.indexOf('at') > 0 ){
@@ -28,17 +28,37 @@ function updateIt(){
             }
         }
     });
-    $("#classic").find(".phenom-desc").each(function(){
+    $("#trello-root").find(".card-detail-due-date-text").each(function(){
+        var ts_text = $(this).html();
+        if( ts_text && ts_text.indexOf('  ') === -1 ){
+            ts_text = ts_text.replace(' at', ", " + new Date().getFullYear());
+            var dt = new Date( Date.parse( ts_text ) );
+            $(this).parent().css({direction: "rtl", 'padding-right': "12px", 'padding-left': 0});
+            $(this).html(new JDate( dt.getTime() ).echo("d M") + "، ساعت " + ziro(dt.getHours()) + ":" + ziro(dt.getMinutes()) + "  ");
+        }
+    });
+    $("#trello-root").find(".js-due-date-text").each(function(){
+        var ts_text = $(this).html();
+        if( ts_text && ts_text.indexOf('  ') === -1 ){
+            ts_text = ts_text + ", " + new Date().getFullYear();
+            var dt = new Date( Date.parse( ts_text ) );
+            $(this).html(new JDate( dt.getTime() ).echo("d M  "));
+        }
+    });
+    $("#trello-root").find(".phenom-desc").each(function(){
         if( ! $(this).attr("data-r324") ){
             var text = $(this).html();
             text = text.replace('moved this card from', "انتقال از<strong>");
+            text = text.replace('changed the due date of this card', "ددلاین را تغییر داد<strong>");
+            text = text.replace('set this card', "اعمال کرد<strong>");
+            text = text.replace('transferred this card from', "این کارت را انتقال داد از<strong>");
             text = text.replace('to', "</strong>به<strong>") + "</strong>";
             text = text.replace('added this card', "اضافه کرد<strong>");
             $(this).html(text);
             $(this).attr("data-r324", "OK");
         }
     });
-    $("#classic").find(".day-cell").each(function(){
+    $("#trello-root").find(".day-cell").each(function(){
         var dt = new Date( parseInt($(this).attr('name')) );
         var day = $(this).find(".date");
         if( day.html().indexOf('  ') === -1 ){
@@ -48,7 +68,7 @@ function updateIt(){
             day.html( day.html() + " <div class='"+ lclass +"'>"+ label +"</div>  " );
         }
     });
-    $("#classic").find(".calendar-header-toolbar-title").each(function(){
+    $("#trello-root").find(".calendar-header-toolbar-title").each(function(){
         if( $(this).html().indexOf('  ') === -1 ){
             var jd = new JDate( Date.parse($(this).html()) );
             $(this).html( jd.echo("F Y  ") );
@@ -67,7 +87,5 @@ function updateIt(){
 }
 (function() {
     'use strict';
-
-    //updateIt();
     setInterval(updateIt, 1000);
 })();
