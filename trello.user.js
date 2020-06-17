@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Trello jdate
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  try to take over the world!
 // @author       You
 // @match        https://trello.com/*
 // @grant        none
-// @require      https://raw.githubusercontent.com/moghaddam24/jdate/master/jdate.min.js
+// @require      https://raw.githubusercontent.com/moghaddam24/Trello-Farsi/master/jdate.min.js
 // @updateURL    https://raw.githubusercontent.com/moghaddam24/Trello-Farsi/master/trello.user.js
 // ==/UserScript==
 
